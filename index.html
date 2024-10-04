@@ -1,66 +1,105 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recomendador de Filmes</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recomendador de Jogos</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script&gt;
+  <style>
+    .box {
+      width: 850px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 2px solid #4c0073;
+      border-radius: 10px;
+      background-color: #f4f4f4;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    h2 {
+      color: #4c0073;
+    }
+
+    span, input, label {
+      font-size: 18px;
+      margin: 10px;
+      color: #333;
+    }
+
+    .input-container {
+      display: inline-block;
+    }
+
+    iframe {
+      margin-top: 20px;
+      border: 2px solid #4c0073;
+      border-radius: 10px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    button {
+      margin-left: 10px;
+    }
+  </style>
 </head>
 <body>
+  <div class="box">
+    <h2>Recomendador de Jogos</h2>
+   
+    <div class="input-container">
+      <span>Sua idade:</span>
+      <input id="idadeInput" type="number" value="5" />
+      <button id="resetButton">Reset</button>
+    </div>
+
+    <!-- Iframe para exibir o jogo -->
+    <iframe id="gameIframe" width="485" height="402" allowtransparency="true" frameborder="0" scrolling="no" allowfullscreen></iframe>
+    <p id="statusMessage">Em construção</p>
+
     <script>
-        let campoIdade;
-        let campoFantasia;
-        let campoAventura;
+      const gameIframe = document.getElementById('gameIframe');
+      const idadeInput = document.getElementById('idadeInput');
+      const statusMessage = document.getElementById('statusMessage');
+      const resetButton = document.getElementById('resetButton');
 
-        function setup() {
-            createCanvas(800, 400);
-            createElement("h2", "Recomendador de filmes");
-            createSpan("Sua idade:");
-            campoIdade = createInput("5");
-            campoFantasia = createCheckbox("Gosta de fantasia?");
-            campoAventura = createCheckbox("Gosta de aventura?");
+      // Mantém o iframe escondido inicialmente
+      gameIframe.classList.add('hidden');
+
+      // Função para exibir o jogo com base na idade
+      function geraRecomendacao(idade) {
+        if (idade == 15) {
+          gameIframe. src="https://scratch.mit.edu/projects/431072993/embed" 
+          gameIframe.classList.remove('hidden');
+          statusMessage.textContent = "Bom jogo!";
+        } else if (idade == 14) {
+          gameIframe. src="https://scratch.mit.edu/projects/813887623/embed" 
+          gameIframe.classList.remove('hidden');
+          statusMessage.textContent = "Bom jogo!";
+        } else {
+          gameIframe.classList.add('hidden');
+          statusMessage.textContent = "Em construção";
         }
+      }
 
-        function draw() {
-            background("white");
-            let idade = campoIdade.value();
-            let gostaDeFantasia = campoFantasia.checked();
-            let gostaDeAventura = campoAventura.checked();
-            let recomendacao = geraRecomendacao(idade, gostaDeFantasia, gostaDeAventura);
-
-            fill(color(76, 0, 115));
-            textAlign(CENTER, CENTER);
-            textSize(38);
-            text(recomendacao, width / 2, height / 2);
+      // Detecta o pressionamento da tecla Enter no campo de idade
+      idadeInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          geraRecomendacao(idadeInput.value);
+          idadeInput.disabled = true; // Bloqueia a edição após a escolha
         }
+      });
 
-        function geraRecomendacao(idade, gostaDeFantasia, gostaDeAventura) {
-            if (idade >= 10) {
-                if (idade >= 14) {
-                    return "O menino que descobriu o vento";
-                } else {
-                    if (idade >= 12) {
-                        if(gostaDeFantasia || gostaDeAventura) {
-                            return "Homem aranha: no aranhaverso";          
-                        } else {
-                            return "Ladrões de bicicleta";
-                        }
-                    } else {
-                        if (gostaDeFantasia) {
-                            return "As aventuras de pi";
-                        } else {
-                            return "Depois da chuva";
-                        }
-                    }
-                }
-            } else {
-                if (gostaDeFantasia) {
-                    return "A viagem de chihiro";
-                } else {
-                    return "O feitiço do tempo";
-                }
-            }
-        }
+      // Botão de reset para liberar a troca de idade
+      resetButton.addEventListener('click', function() {
+        gameIframe.src = "";
+        statusMessage.textContent = "Em construção";
+        idadeInput.disabled = false; // Libera o campo para alteração
+      });
     </script>
+  </div>
 </body>
 </html>
