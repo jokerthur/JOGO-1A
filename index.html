@@ -91,8 +91,11 @@
           statusMessage.textContent = "Bom jogo!";
         } else {
           gameIframe.classList.add('hidden');
-          statusMessage.textContent = "Em construção";
-    } 
+         statusMessage.textContent = "Em construção";
+        } else if (idade == 10) {
+          gameIframe. src="https://scratch.mit.edu/projects/247987287/embed" 
+          gameIframe.classList.remove('hidden');
+          statusMessage.textContent = "Bom jogo!";
   }
       // Detecta o pressionamento da tecla Enter no campo de idade
       idadeInput.addEventListener('keydown', function(event) {
